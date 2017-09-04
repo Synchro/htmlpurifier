@@ -27,6 +27,7 @@ class HTMLPurifier_AttrDef_CSSTest extends HTMLPurifier_AttrDefHarness
         $this->assertDef('background-color:rgb(0,0,255);');
         $this->assertDef('background-color:transparent;');
         $this->assertDef('background:#333 url("chess.png") repeat fixed 50% top;');
+        $this->assertDef('background:#333 url("che;ss.png") repeat fixed 50% top;');
         $this->assertDef('color:#F00;');
         $this->assertDef('border-top-color:#F00;');
         $this->assertDef('border-color:#F00 #FF0;');
@@ -61,6 +62,10 @@ class HTMLPurifier_AttrDef_CSSTest extends HTMLPurifier_AttrDefHarness
         $this->assertDef('width:50px;');
         $this->assertDef('width:auto;');
         $this->assertDef('width:-50px;', false);
+        $this->assertDef('min-width:50%;');
+        $this->assertDef('min-width:50px;');
+        $this->assertDef('min-width:auto;');
+        $this->assertDef('min-width:-50px;', false);
         $this->assertDef('text-decoration:underline;');
         $this->assertDef('font-family:sans-serif;');
         $this->assertDef("font-family:Gill, 'Times New Roman', sans-serif;");
@@ -132,6 +137,8 @@ class HTMLPurifier_AttrDef_CSSTest extends HTMLPurifier_AttrDefHarness
         $this->assertDef('-moz-opacity:.2;');
         $this->assertDef('-khtml-opacity:.2;');
         $this->assertDef('filter:alpha(opacity=20);');
+
+        $this->assertDef('border-top-left-radius:55pt 25pt;');
 
     }
 

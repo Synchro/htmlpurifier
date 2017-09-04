@@ -10,7 +10,8 @@ class HTMLPurifier_AttrValidator_ErrorsTest extends HTMLPurifier_ErrorsHarness
         $this->language = HTMLPurifier_LanguageFactory::instance()->create($config, $this->context);
         $this->context->register('Locale', $this->language);
         $this->collector = new HTMLPurifier_ErrorCollector($this->context);
-        $this->context->register('Generator', new HTMLPurifier_Generator($config, $this->context));
+        $gen = new HTMLPurifier_Generator($config, $this->context);
+        $this->context->register('Generator', $gen);
     }
 
     protected function invoke($input)
@@ -26,7 +27,7 @@ class HTMLPurifier_AttrValidator_ErrorsTest extends HTMLPurifier_ErrorsHarness
         $transform = new HTMLPurifier_AttrTransformMock();
         $input = array('original' => 'value');
         $output = array('class' => 'value'); // must be valid
-        $transform->setReturnValue('transform', $output, array($input, new AnythingExpectation(), new AnythingExpectation()));
+        $transform->returns('transform', $output, array($input, new AnythingExpectation(), new AnythingExpectation()));
         $def->info_attr_transform_pre[] = $transform;
 
         $token = new HTMLPurifier_Token_Start('span', $input, 1);
